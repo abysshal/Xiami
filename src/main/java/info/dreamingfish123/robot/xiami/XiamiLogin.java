@@ -2,6 +2,10 @@ package info.dreamingfish123.robot.xiami;
 
 import java.io.IOException;
 import java.net.URL;
+
+import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.params.CookiePolicy;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.HttpMethod;
@@ -76,7 +80,7 @@ public class XiamiLogin {
 			HtmlElement toSign = actions.getOneHtmlElementByAttribute("b",
 					"class", "icon tosign");
 			htmlPage = toSign.click();
-			System.out.println(htmlPage.asText());
+			System.out.println(htmlPage.getTitleText());
 
 		}
 		return false;
@@ -84,7 +88,10 @@ public class XiamiLogin {
 
 	public static void main(String[] args)
 			throws FailingHttpStatusCodeException, IOException {
-
+		// turn off htmlunit warnings
+		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
+	    java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
+		
 		User user = new User();
 		user.setUsername("Your email address here");
 		user.setPassword("Your password here");
